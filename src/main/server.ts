@@ -1,3 +1,9 @@
-import app from './config/app'
+import { MongoHelper } from '../infra/db/mongodb/helper/mongo-helper'
+import env from './config/env'
 
-app.listen(8080, () => console.log('Sever is running at port http://localhost:8080'))
+MongoHelper.connect(env.mongoUrl)
+    .then(async () => {
+        const app = (await import('./config/app')).default
+        app.listen(env.port, () => console.log(`Sever is running at port http://localhost:${env.port}`))
+    })
+    .catch(console.error)
