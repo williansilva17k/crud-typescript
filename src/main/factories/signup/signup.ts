@@ -3,7 +3,7 @@ import { DbAddAccount } from '../../../data/usecase/add-account/db-add-account'
 import { BcryptAdapter } from '../../../infra/cryptography/bcrypt-adapter'
 import { AccountMongoRepository } from '../../../infra/db/mongodb/accout-repository/account'
 import { LogMongoRepository } from '../../../infra/db/mongodb/log-repository/log'
-import { Controller } from '../../../presentation/protocols'
+import { Controller } from '../../../presentation/helpers/validators'
 import { LogControllerDecorator } from '../../decorators/log'
 import { makeSignUpValidation } from '../signup/signup-validation'
 
