@@ -2,13 +2,13 @@ import {
   Encrypter,
   AddAcountModel,
   AccountModel,
-  AddAccountRepository,
+  AddAccountRepository
 } from './db-account-protocols'
 import { DbAddAccount } from './db-add-account'
 
 const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
-    async encrypt(value: string): Promise<string> {
+    async encrypt (value: string): Promise<string> {
       return new Promise((resolve) => resolve('hashed_password'))
     }
   }
@@ -16,7 +16,7 @@ const makeEncrypter = (): Encrypter => {
 }
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
-    async add(accountData: AddAcountModel): Promise<AccountModel> {
+    async add (accountData: AddAcountModel): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -27,13 +27,13 @@ const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email',
-  password: 'hashed_password',
+  password: 'hashed_password'
 })
 
 const makeFakeAccountData = (): AddAcountModel => ({
   name: 'valid_name',
   email: 'valid_email',
-  password: 'valid_password',
+  password: 'valid_password'
 })
 
 interface SutType {
@@ -49,7 +49,7 @@ const makeSut = (): SutType => {
   return {
     sut,
     encrypterStub,
-    addAccountRepositoryStub,
+    addAccountRepositoryStub
   }
 }
 
@@ -77,7 +77,7 @@ describe('DbAddAccount Usecase', () => {
     expect(addSpy).toHaveBeenCalledWith({
       name: 'valid_name',
       email: 'valid_email',
-      password: 'hashed_password',
+      password: 'hashed_password'
     })
   })
   test('Should throw if AddAccountRepository throws', async () => {

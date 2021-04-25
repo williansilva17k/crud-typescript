@@ -1,12 +1,13 @@
 import { SignUpController } from './signup'
 import { MissingParamError, ServerError } from '../../errors'
-import { AccountModel, AddAcount, AddAcountModel, Validation } from './signup-protocols'
-import { HttpRequest } from '../../helpers/validators'
+import { AccountModel, AddAcount, AddAcountModel } from './signup-protocols'
+import { Validation } from '../signup/signup-protocols'
+import { HttpRequest } from '../../protocols'
 import { ok, serverError, badRequest } from '../../helpers/http/http-helper'
 
 const makeAddAcount = (): AddAcount => {
   class AddAcountStub implements AddAcount {
-    async add(account: AddAcountModel): Promise<AccountModel> {
+    async add (account: AddAcountModel): Promise<AccountModel> {
       return new Promise((resolve) => resolve(makeFakeAccount()))
     }
   }
@@ -15,7 +16,7 @@ const makeAddAcount = (): AddAcount => {
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate(input: any): Error {
+    validate (input: any): Error {
       return null
     }
   }
@@ -26,7 +27,7 @@ const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@email.com',
-  password: 'valid_password',
+  password: 'valid_password'
 })
 
 const makeFakeRequest = (): HttpRequest => ({
@@ -34,14 +35,14 @@ const makeFakeRequest = (): HttpRequest => ({
     name: 'any_name',
     email: 'any_email@mail.com',
     password: 'any_password',
-    passwordConfirmation: 'any_password',
-  },
+    passwordConfirmation: 'any_password'
+  }
 })
 
 interface SutTypes {
   sut: SignUpController
   addAccountStub: AddAcount
-  validationStub : Validation
+  validationStub: Validation
 }
 
 const makeSut = (): SutTypes => {
@@ -63,7 +64,7 @@ describe('SignUp Controller', () => {
     expect(addSpy).toHaveBeenCalledWith({
       name: 'any_name',
       email: 'any_email@mail.com',
-      password: 'any_password',
+      password: 'any_password'
     })
   })
 

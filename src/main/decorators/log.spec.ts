@@ -1,4 +1,4 @@
-import { Controller, HttpRequest, HttpResponse } from '../../presentation/helpers/validators'
+import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
 import { LogControllerDecorator } from './log'
 import { serverError, ok } from '../../presentation/helpers/http/http-helper'
 import { LogErrorRepository } from '../../data/protocols/log-error-repository'
@@ -6,7 +6,7 @@ import { AccountModel } from '../../domain/models/account'
 
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
-    async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+    async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
       return new Promise((resolve) => resolve(ok(makeFakeAccount())))
     }
   }
@@ -15,7 +15,7 @@ const makeController = (): Controller => {
 
 const makeLogErrorRepository = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository {
-    async logError(stack: string): Promise<void> {
+    async logError (stack: string): Promise<void> {
       return new Promise((resolve) => resolve())
     }
   }
@@ -27,21 +27,21 @@ const makeFakeRequest = (): HttpRequest => ({
     name: 'any_name',
     email: 'any_email@mail.com',
     password: 'any_password',
-    passwordConfirmation: 'any_password',
-  },
+    passwordConfirmation: 'any_password'
+  }
 })
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
   email: 'valid_email@email.com',
-  password: 'valid_password',
+  password: 'valid_password'
 })
 
 const makeFakeServerError = (): HttpResponse => {
-    const fakeError = new Error()
-    fakeError.stack = 'any_stack'
-    return serverError(fakeError)
+  const fakeError = new Error()
+  fakeError.stack = 'any_stack'
+  return serverError(fakeError)
 }
 interface SutTypes {
   sut: LogControllerDecorator

@@ -6,12 +6,12 @@ export class SignUpController implements Controller {
   private readonly addAccount: AddAcount
   private readonly validation: Validation
 
-  constructor(addAccount: AddAcount, validation: Validation) {
+  constructor (addAccount: AddAcount, validation: Validation) {
     this.addAccount = addAccount
     this.validation = validation
   }
 
-  async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
+  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(httpRequest.body)
       if (error) {
@@ -21,7 +21,7 @@ export class SignUpController implements Controller {
       const account = await this.addAccount.add({
         name,
         email,
-        password,
+        password
       })
       return ok(account)
     } catch (error) {
