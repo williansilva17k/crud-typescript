@@ -1,11 +1,11 @@
+import { ValidationComposite } from './validation-composite'
 import { MissingParamError } from '../../errors'
 import { Validation } from '../../protocols/validation'
-import { ValidationComposite } from './validation-composite'
 
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
-    validate(input: any): Error {
-      return new MissingParamError('field')
+    validate (input: any): Error {
+      return null
     }
   }
   return new ValidationStub()
@@ -17,12 +17,14 @@ interface SutTypes {
 }
 
 const makeSut = (): SutTypes => {
-  const validationStubs = [makeValidation(), makeValidation()]
+  const validationStubs = [
+    makeValidation(),
+    makeValidation()
+  ]
   const sut = new ValidationComposite(validationStubs)
-
   return {
     sut,
-    validationStubs,
+    validationStubs
   }
 }
 
